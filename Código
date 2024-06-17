@@ -1,0 +1,65 @@
+.data
+
+.text
+.globl main
+
+fibonacci:
+    addi $sp, $sp, -8     
+    sw $ra, 4($sp)        
+    sw $a0, 0($sp)        
+    
+    li $v0, 0             
+    li $t0, 1             
+    
+    beq $a0, 0, return_fibonacci
+    beq $a0, 1, return_fibonacci
+    
+    move $v0, $t0         
+    move $t1, $v0         
+    move $t2, $v0         
+    
+    li $t3, 2             
+    loop_fibonacci:
+        add $v0, $t1, $t2  
+        move $t1, $t2      
+        move $t2, $v0      
+        addi $t3, $t3, 1   
+        
+        bne $t3, $a0, loop_fibonacci
+        
+    return_fibonacci:
+        lw $a0, 0($sp)     
+        lw $ra, 4($sp)     
+        addi $sp, $sp, 8   
+        jr $ra             
+
+calculate_phi:
+    mtc1 $a0, $f0         
+    cvt.s.w $f0, $f0      
+    mtc1 $a1, $f1         
+    cvt.s.w $f1, $f1      
+    
+    div.s $f12, $f0, $f1  
+    
+    jr $ra                
+
+main:
+    li $a0, 30             
+    jal fibonacci          
+    move $s1, $v0          
+    
+    li $a0, 41             
+    jal fibonacci          
+    move $s2, $v0          
+    
+    li $a0, 40             
+    jal fibonacci          
+    move $s3, $v0          
+    
+    move $a0, $s2          
+    move $a1, $s3          
+    jal calculate_phi      
+    mov.s $f0, $f12        
+    
+    li $v0, 10             
+    syscall
