@@ -8,7 +8,7 @@ Este repositório contém um programa escrito em Assembly MIPS para calcular ter
 
 `* Utilizar os valores dos 41º e 40º termos para calcular a Razão Áurea, que é a divisão do 41º termo pelo 40º termo, e armazená-la no registrador de ponto flutuante $f0.`
 
-<h1> Detalhes de Implementação: </h1>h1>
+<h1> Detalhes de Implementação: </h1>
 
  <b>Cálculo da Sequência de Fibonacci </b>
  
